@@ -1,0 +1,126 @@
+doctype html
+html
+        head
+                title=title
+                meta(charset="utf-8")
+                meta(http-equiv="X-UA-Compatible",content="IE=edge")
+                meta(name="viewport",content="width=device-width, initial-scale=1")
+                style!=link
+                link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css",rel="stylesheet")
+                
+                script(src="/socket.io/socket.io.js")
+                script!=NodeRSA
+                script(src="http://code.jquery.com/jquery-1.11.1.js")
+                script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js")       
+                
+                script!=clientScript
+                
+        body
+                .container.fill
+                        nav.navbar.navbar-default.navbar-fixed-top
+                                .container
+                                        .row
+                                                col-sm-4
+                                                        .btn-group
+                                                                button#login.btn.btn-default(type="submit")="Login"
+                                        
+                        .row.fill                                        
+                                .col-sm-4
+                                        .row
+                                                .panel.panel-default
+                                                        .panel-heading
+                                                                .row
+                                                                        .col-sm-8
+                                                                                input#search(class="form-control",type="text")
+                                                                        .col-sm-2
+                                                                                button#btn-serach.btn.btn-default(type="submit")="Search"        
+                                                        .panel-body
+                                                                table.table#chatinfo
+                                                                        each val,index in users
+                                                                                tr
+                                                                                        td
+                                                                                                img(src=val.icon)
+                                                                                        td
+                                                                                                a=val.name
+                                                                                        td
+                                                                                                a="a"              
+                                                                                        
+                                .col-sm-8.message-panel
+                                        .panel.panel-default.fill
+                                                .panel-heading
+                                                        .row
+                                                                .col-sm-12#chatheading
+
+                                                .panel-body(style="height: 90%;overflow: scroll")
+                                                        table.table#chatpanel
+                                                .panel-footer
+                                                        .row
+                                                                .col-sm-12
+                                                                        .input-group
+                                                                                input#chat-input(class="form-control",type="text")
+                                                                                span.input-group-btn
+                                                                                        button#btn-chat.btn.btn-default(type="submit")="Enter"
+                .modal.fade.bs-example-modal-sm#login(tabindex="-1",role="dialog",aria-labelledby="mySmallModalLabel",aria-hidden="true")
+                        .modal-dialog.modal-sm
+                                .modal-content
+                                        .modal-header
+                                                button.close(data-dismiss="modal",aria-label="Close")
+                                                        span(aria-hidden="true")!="&times;"
+                                                h4.modal-title#myModalLabel="Login request!!!"
+                                        .modal-body
+                                                .row
+                                                        .col-sm-12
+                                                                .input-group                                                                
+                                                                        span.input-group-addon#sizing-addon3="@"
+                                                                        input.form-control#user(type="text",placeholder="Username",aria-describedby="sizing-addon3")
+                                                .row
+                                                        .col-sm-12
+                                                                .input-group
+                                                                        span.input-group-addon#sizing-addon3="Pwd"
+                                                                        input.form-control#password(type="password",placeholder="Password",aria-describedby="sizing-addon3")
+                                                
+                                        .modal-footer
+                                                .btn.btn-default#register-btn(type="button",data-dismiss="modal")="Register"
+                                                .btn.btn-default#login-btn(type="button")="Login"
+                                                
+                .modal.fade.bs-example-modal-sm#register(tabindex="-1",role="dialog",aria-labelledby="mySmallModalLabel-register",aria-hidden="true")
+                        .modal-dialog.modal-sm
+                                .modal-content
+                                        .modal-header
+                                                button.close(data-dismiss="modal",aria-label="Close")
+                                                        span(aria-hidden="true")!="&times;"
+                                                h4.modal-title#myModalLabel-register="Register"
+                                        .modal-body
+                                                .row
+                                                        .col-sm-12#alert-fail
+                                                                
+                                                .row
+                                                        .col-sm-12
+                                                                .input-group                                                                
+                                                                        span.input-group-addon#sizing-addon3="@"
+                                                                        input.form-control#user-register(type="text",placeholder="Username",aria-describedby="sizing-addon3")
+                                                .row
+                                                        .col-sm-12
+                                                                .input-group
+                                                                        span.input-group-addon#sizing-addon3="Pwd"
+                                                                        input.form-control#password-register(type="password",placeholder="Password",aria-describedby="sizing-addon3")
+                                                
+                                        .modal-footer
+                                                .btn.btn-default#cancle-btn(type="button",data-dismiss="modal")="Cancle"
+                                                .btn.btn-default#register-btn-submit(type="button")="Register"
+                .modal.fade.bs-example-modal-sm#guess(tabindex="-1",role="dialog",aria-labelledby="guessModal",aria-hidden="true")
+                        .modal-dialog.modal-sm
+                                .modal-content
+                                        .modal-header
+                                                button.close(data-dismiss="modal",aria-label="Close")
+                                                        span(aria-hidden="true")!="&times;"
+                                                h4.modal-title#guessModal="Input name to chat!"
+                                        .modal-body
+                                                .row
+                                                        .col-sm-12
+                                                                .input-group                                                                
+                                                                        span.input-group-addon#sizing-addon3="Your's name is :"
+                                                                        input.form-control#name(type="text",placeholder="name",aria-describedby="sizing-addon3")                                                
+                                        .modal-footer
+                                                .btn.btn-default#chat-name-btn(type="button")="Chat"                               
+                        

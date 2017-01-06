@@ -1,0 +1,15 @@
+var mongoose =  require('mongoose');
+
+var User = mongoose.Schema;
+
+var Users = new User({
+        name: String,
+        pass: String,
+        icon: String,
+        friends: {type: [Object] },
+        rooms: {type: [Object]}
+});
+Users.index({name:1});
+Users.set('autoIndex', false);
+
+module.exports = mongoose.model('Users',Users);

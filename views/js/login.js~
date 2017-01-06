@@ -1,0 +1,113 @@
+$(".modal#guess").modal({
+        show:true,
+        backdrop: "static"
+});
+
+$(".modal#login").on("hidden.bs.modal",function(e){
+        if(user == null){
+                $(".modal#register").modal({
+                        show:true,
+                        backdrop: "static"
+                });
+        }else{
+                console.log(user);
+        }
+});
+
+$(".modal#guess").on("hidden.bs.modal",function(e){
+        
+});
+$("#chat-name-btn").on('click',function(e){
+        var name = $('#name').val();
+        socket.emit('joinServer',name);
+        console.log("User "+ name + " join server");
+        
+});
+
+socket.on('joined',function(data){
+        if(data){
+                $("#guess").modal('hide');
+                socket.emit('checkPeoples');
+                socket.emit('checkRooms');
+                $('#chatheading').empty().append("<p>You are sitting in broadcast</p>");
+        }
+});
+
+socket.on('checkPeoples',function(peoples){
+        console.log(peoples);
+        var users = '';
+        for(var key in peoples){
+                users += '<tr id='+key+' class="user">';
+                users += '<td>';
+                users += '<img src="'+key+'">';
+                users += '</td>';
+                users += '<td>';
+                users += '<a>'+peoples[key].name+'</a>';
+                users += '</td>';
+                users += '<td>';
+                users += '<a>a</a>';
+                users += '</td>';
+                users += '</tr>';
+        }
+        $('#chatinfo').empty().append(users);
+        
+});
+
+socket.on('checkRooms',function(rooms){
+        
+});
+
+
+
+
+
+$('#btn-chat').on('click',function(e){
+
+        var message = $('#chat-input').val();
+        if(people != null){
+                console.log('send msg with people '+people);
+                socket.emit('message',message,people);
+                //send('message',message,people);
+        }else if(room != null){
+                console.log('send msg with room '+room);
+                send('message',message,room);
+        }else{
+                send('message',message);
+        }
+        var ms = '<tr><td>Me</td><td>'+message+'</td></tr>';
+        $('#chatpanel').append(ms);
+        $('#chat-input').val("");
+                
+});
+$('#chat-input').on('keyup',function(key){
+        if(key.keyCode == 13){                        
+                $('#btn-chat').click();
+        }
+});
+socket.on('message',function(msg,p){
+        if(p){
+        var ms = '<tr><td>'+p+'</td><td>'+msg+'</td></tr>';
+        $('#chatpanel').append(ms);
+});
+
+
+var send = function(event,data){
+        console.log('send function trigged with event '+event);
+        socket.emit(event,data);
+}
+
+var recieve = function(event,callback){
+        console.log('recieve function trigged with event ' + event);
+
+    socket.on(event,callback);
+}
+
+$(document).ready(function(){
+        $("body").on('click','tr',function(e){
+                people = $(e.currentTarget).attr('id');
+                console.log('selected people' + people);
+        });
+
+});
+
+

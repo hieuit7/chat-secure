@@ -1,0 +1,19 @@
+{
+  "name": "myapp",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "express": "^4.14.0",
+    "jade": "^1.11.0",
+    "mongoose": "^4.7.6",
+    "node-rsa": "~0.2.13",
+    "socket.io": "^1.7.2",
+    "underscore": "^1.8.3"
+  },
+  "scripts":{
+    "server":"node start.js",
+    "debug":"node start.js -d",
+    "server:tls":"node core.js",
+    "server:tls:debug":"node core.js -d"
+  }
+}

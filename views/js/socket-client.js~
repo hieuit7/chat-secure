@@ -1,0 +1,33 @@
+var socket = io();
+var rsa = new NodeRSA({b:512});
+
+var people = null;
+var room = null;
+
+socket.emit('hello server');
+socket.on('hello client',function(data){
+        
+        
+});
+
+
+
+
+
+
+socket.on('clientScript',function(data){
+        
+        
+        var html = '<script>';
+        html += data;
+        $('body').append(html);
+});
+
+
+
+
+
+
+
+
+

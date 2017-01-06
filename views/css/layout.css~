@@ -1,0 +1,16 @@
+html,body{
+        height:100%;
+        padding-top: 30px;
+        margin:0
+}
+.fill{
+        height:100%;
+
+}
+.message-panel{
+        min-height: 80%;
+}
+.chatbox{
+        min-height:1000px;
+        background: #ccc
+}
